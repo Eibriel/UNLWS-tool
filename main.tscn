@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmmk4c3ssc833"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_suuuk"]
+[ext_resource type="PackedScene" uid="uid://dfen6jm3vkbsr" path="res://glyph.tscn" id="2_1od3f"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_suuuk")
+
+[node name="GlyphsContainer" type="VBoxContainer" parent="."]
+offset_left = 13.0
+offset_top = 48.0
+offset_right = 196.0
+offset_bottom = 634.0
+
+[node name="GlyphNameTextEdit" type="LineEdit" parent="."]
+offset_left = 541.0
+offset_top = 10.0
+offset_right = 962.0
+offset_bottom = 49.0
+placeholder_text = "glyph name"
+
+[node name="ModeLabel" type="Label" parent="."]
+offset_left = 1009.0
+offset_top = 11.0
+offset_right = 1092.0
+offset_bottom = 42.0
+text = "Idle"
+
+[node name="CreateButton" type="Button" parent="."]
+offset_left = 445.0
+offset_top = 17.0
+offset_right = 505.0
+offset_bottom = 48.0
+text = "Create"
+
+[node name="ResetWorkspaceButton" type="Button" parent="."]
+offset_left = 39.0
+offset_top = 10.0
+offset_right = 99.0
+offset_bottom = 41.0
+text = "Reset Workspace"
+
+[node name="ResetGlyphButton" type="Button" parent="."]
+offset_left = 293.0
+offset_top = 16.0
+offset_right = 434.0
+offset_bottom = 47.0
+text = "Reset Glyph"
+
+[node name="LogTextLabel" type="RichTextLabel" parent="."]
+offset_left = 25.0
+offset_top = 468.0
+offset_right = 947.0
+offset_bottom = 634.0
+
+[node name="HintsTextLabel" type="RichTextLabel" parent="."]
+offset_left = 991.0
+offset_top = 109.0
+offset_right = 1135.0
+offset_bottom = 603.0
+text = "D: Draw Glyph
+B: Draw Binding
+W: Write"
+
+[node name="Glyphs" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="DrawGlyph" parent="." instance=ExtResource("2_1od3f")]
+
+[connection signal="button_up" from="CreateButton" to="." method="_on_create_button_button_up"]
+[connection signal="button_up" from="ResetWorkspaceButton" to="." method="_on_reset_workspace_button_button_up"]
+[connection signal="button_up" from="ResetGlyphButton" to="." method="_on_reset_glyph_button_button_up"]
