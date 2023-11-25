@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://tw38synxcgc0"]
+
+[ext_resource type="Script" path="res://glyphs/thing.gd" id="1_vtlgw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vjdy"]
+size = Vector2(88, 69)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxjlx"]
+radius = 17.2627
+
+[node name="thing" type="Node2D"]
+script = ExtResource("1_vtlgw")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-33, 0, 32, -1)
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_0vjdy")
+
+[node name="BindingPoint1" type="Area2D" parent="."]
+position = Vector2(37, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BindingPoint1"]
+shape = SubResource("CircleShape2D_dxjlx")
+
+[node name="Slot_Any" type="Area2D" parent="."]
+position = Vector2(-38, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Any"]
+shape = SubResource("CircleShape2D_dxjlx")

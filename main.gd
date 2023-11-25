@@ -1,125 +1,90 @@
-extends Node2D
+extends Control
 
-@onready var mode_label = $ModeLabel
-@onready var draw_glyph = $DrawGlyph
-@onready var glyph_name_text_edit = $GlyphNameTextEdit
-@onready var glyphs_container = $GlyphsContainer
 @onready var glyphs_node = $Glyphs
-@onready var log_text_label = $LogTextLabel
+@onready var glyph_list_container = $GlyphListContainer
+@onready var glyph_rotation = $GlyphRotation
+@onready var tmr_text_label = $TMRTextLabel
 
-
-var mode:int = 0
-
-class GlyphData:
-	var id: String
-	var glyph_pos: Array[Vector2]
-	var binding_pos: Array[Vector2]
-
-var glyphs: Dictionary
-
-const MODES := {
-	"IDLE": 0,
-	"DRAWING": 1,
-	"ERASING": 2,
-	"ADD_BINDING": 3,
-	"WRITTING": 4
+var glyph_list = {
+	"eats": preload("res://glyphs/eats.tscn"),
+	"fish": preload("res://glyphs/fish.tscn"),
+	"large": preload("res://glyphs/large.tscn"),
+	"me": preload("res://glyphs/me.tscn"),
+	"thing": preload("res://glyphs/thing.tscn"),
+	"cat": preload("res://glyphs/cat.tscn"),
+	"remember": preload("res://glyphs/remember.tscn"),
+	"finished": preload("res://glyphs/finished.tscn"),
 }
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and not event.is_pressed():
-		mode = 0
-		update_mode()
-	if event.is_action_pressed("draw_glyph"):
-		mode = 1
-		update_mode()
-	elif event.is_action_pressed("draw_binding"):
-		mode = 3
-		update_mode()
-	elif event.is_action_pressed("write"):
-		mode = 0
-		update_mode()
-	
-	queue_redraw()
+var instances = {}
+var grabbing := false
+var initial_grab_pos:Vector2
+var visible_areas := false
 
-func update_mode():
-	const mode_names := [
-		"Idle",
-		"Drawing",
-		"Erasing",
-		"Add binding",
-		"Writting"
-	]
-	mode_label.text = mode_names[mode]
-	draw_glyph.set_mode(mode)
-
-func update_glyph_list():
-	for c in glyphs_container.get_children():
-		c.queue_free()
-	for gid in glyphs:
-		var g = glyphs[gid]
+func _ready():
+	Global.connect("glyph_selected", _on_glyph_selected)
+	for l in glyph_list:
 		var b := Button.new()
-		b.text = g.id
-		b.connect("button_up", _on_add_glyph.bind(gid))
-		glyphs_container.add_child(b)
+		b.text = l
+		b.connect("button_up", _on_add_glyph.bind(glyph_list[l]))
+		glyph_list_container.add_child(b)
 
-func _on_create_button_button_up():
-	if glyph_name_text_edit.text == "": return
-	var g = GlyphData.new()
-	g.id = glyph_name_text_edit.text
-	g.glyph_pos = draw_glyph.get_glyph_pos()
-	g.binding_pos = draw_glyph.get_binding_pos()
-	glyphs[g.id] = g
-	draw_glyph.reset()
-	update_glyph_list()
-	glyph_name_text_edit.text = ""
+func _input(event):
+	if event is InputEventMouseMotion:
+		if grabbing:
+			glyphs_node.position = event.position-initial_grab_pos
+	if event is InputEventMouseButton:
+		if event.button_index == 2:
+			if event.pressed:
+				initial_grab_pos = event.position-glyphs_node.position
+				grabbing = true
+			if not event.pressed:
+				grabbing = false
 
-func _on_add_glyph(id: String):
-	print(id)
-	var glyph_scene := preload("res://glyph.tscn")
-	var g := glyph_scene.instantiate()
+func _on_add_glyph(scene:PackedScene):
+	var g: Glyph = scene.instantiate()
+	g.position = Vector2(300, 300)
 	glyphs_node.add_child(g)
-	var gd:GlyphData = glyphs[id] as GlyphData
-	g.id = id
-	g.set_glyph_pos(gd.glyph_pos)
-	g.set_binding_pos(gd.binding_pos)
-	g.sticky = true
 
-func _draw():
-	log_text_label.text = ""
-	for gc in glyphs_node.get_children():
-		var closest_gp:Vector2
-		var closest_gpp:Vector2
-		var min_dist:=999999.0
-		var connection := ""
-		for gcc in glyphs_node.get_children():
-			if gc == gcc: continue
-			var data = find_closest_bind(gc, gcc)
-			if data[2] < min_dist:
-				closest_gp = data[0]+gc.position
-				closest_gpp = data[1]+gcc.position
-				min_dist = data[2]
-				connection = "%s - %s" % [gc.id, gcc.id]
-		log_text_label.text += "\n%s" % connection
-		draw_line(closest_gp+glyphs_node.position, closest_gpp+glyphs_node.position, Color.GREEN, 10.0)
+func _on_glyph_selected():
+	glyph_rotation.value = rad_to_deg(Global.selected_glyph.rotation)
 
-func find_closest_bind(gc:DrawGlyph, gcc:DrawGlyph):
-	var closest_gp:Vector2
-	var closest_gpp:Vector2
-	var min_dist:=999999.0
-	for gp in gc.get_binding_pos():
-		for gpp in gcc.get_binding_pos():
-			var d := (gp+gc.position).distance_squared_to(gpp+gcc.position)
-			if d < min_dist:
-				closest_gp = gp
-				closest_gpp = gpp
-				min_dist = d
-	return [closest_gp, closest_gpp, min_dist]
+func _on_glyph_rotation_value_changed(value:float):
+	Global.selected_glyph.rotation = deg_to_rad(value)
 
+func _on_generate_tmr_button_up():
+	instances = {}
+	for g in glyphs_node.get_children():
+		g = g as Glyph
+		var i = g.get_instance()
+		instances[i.instance_name] = i
+	var text := "TMR:\n"
+	for i in instances:
+		var t:= get_description(i)
+		if t != "":
+			text += t
+			text += "\n"
+	tmr_text_label.text = text
 
-func _on_reset_glyph_button_button_up():
-	draw_glyph.reset()
+func get_description(i:String)->String:
+	var id = instances[i].id
+	if not ["remember", "eats", "thing"].has(id): return ""
+	var description := ""
+	var _name := i
+	if instances[i].prop.size() > 0:
+		description += " is "
+	for p in instances[i].prop:
+		description += "%s " % p
+	if instances[i].has("agent"):
+		_name = "%s %s" % [instances[i]["agent"], _name]
+	if instances[i].has("theme"):
+		_name = "%s %s" % [_name, instances[i]["theme"]]
+	return "%s%s" % [_name, description]
 
+func _on_clear_button_button_up():
+	for g in glyphs_node.get_children():
+		glyphs_node.remove_child(g)
 
-func _on_reset_workspace_button_button_up():
-	for c in glyphs_node.get_children():
-		c.queue_free()
+func _on_debug_button_button_up():
+	visible_areas = !visible_areas
+	get_tree().set_debug_collisions_hint(visible_areas)

@@ -1,72 +1,83 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmmk4c3ssc833"]
+[gd_scene load_steps=2 format=3 uid="uid://dmmk4c3ssc833"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_suuuk"]
-[ext_resource type="PackedScene" uid="uid://dfen6jm3vkbsr" path="res://glyph.tscn" id="2_1od3f"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_suuuk")
 
-[node name="GlyphsContainer" type="VBoxContainer" parent="."]
-offset_left = 13.0
-offset_top = 48.0
-offset_right = 196.0
-offset_bottom = 634.0
-
-[node name="GlyphNameTextEdit" type="LineEdit" parent="."]
-offset_left = 541.0
-offset_top = 10.0
-offset_right = 962.0
-offset_bottom = 49.0
-placeholder_text = "glyph name"
-
-[node name="ModeLabel" type="Label" parent="."]
-offset_left = 1009.0
-offset_top = 11.0
-offset_right = 1092.0
-offset_bottom = 42.0
-text = "Idle"
-
-[node name="CreateButton" type="Button" parent="."]
-offset_left = 445.0
-offset_top = 17.0
-offset_right = 505.0
-offset_bottom = 48.0
-text = "Create"
-
-[node name="ResetWorkspaceButton" type="Button" parent="."]
-offset_left = 39.0
-offset_top = 10.0
-offset_right = 99.0
-offset_bottom = 41.0
-text = "Reset Workspace"
-
-[node name="ResetGlyphButton" type="Button" parent="."]
-offset_left = 293.0
-offset_top = 16.0
-offset_right = 434.0
-offset_bottom = 47.0
-text = "Reset Glyph"
-
-[node name="LogTextLabel" type="RichTextLabel" parent="."]
-offset_left = 25.0
-offset_top = 468.0
-offset_right = 947.0
-offset_bottom = 634.0
-
-[node name="HintsTextLabel" type="RichTextLabel" parent="."]
-offset_left = 991.0
-offset_top = 109.0
-offset_right = 1135.0
-offset_bottom = 603.0
-text = "D: Draw Glyph
-B: Draw Binding
-W: Write"
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.894118, 0.87451, 0.843137, 1)
 
 [node name="Glyphs" type="Node2D" parent="."]
-position = Vector2(576, 324)
 
-[node name="DrawGlyph" parent="." instance=ExtResource("2_1od3f")]
+[node name="GlyphListContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.015625
+anchor_top = 0.0401235
+anchor_right = 0.153646
+anchor_bottom = 0.958333
+metadata/_edit_use_anchors_ = true
 
-[connection signal="button_up" from="CreateButton" to="." method="_on_create_button_button_up"]
-[connection signal="button_up" from="ResetWorkspaceButton" to="." method="_on_reset_workspace_button_button_up"]
-[connection signal="button_up" from="ResetGlyphButton" to="." method="_on_reset_glyph_button_button_up"]
+[node name="GlyphRotation" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 993.0
+offset_top = 608.0
+offset_right = 1121.0
+offset_bottom = 624.0
+min_value = -180.0
+max_value = 180.0
+rounded = true
+
+[node name="GenerateTMRButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 987.0
+offset_top = 21.0
+offset_right = 1121.0
+offset_bottom = 54.0
+text = "Generate TMR"
+
+[node name="ClearButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 841.0
+offset_top = 21.0
+offset_right = 975.0
+offset_bottom = 54.0
+text = "Clear"
+
+[node name="DebugButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 693.0
+offset_top = 21.0
+offset_right = 827.0
+offset_bottom = 54.0
+text = "Debug"
+
+[node name="TMRTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 491.0
+offset_right = 1123.0
+offset_bottom = 629.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "TMR:"
+
+[connection signal="value_changed" from="GlyphRotation" to="." method="_on_glyph_rotation_value_changed"]
+[connection signal="button_up" from="GenerateTMRButton" to="." method="_on_generate_tmr_button_up"]
+[connection signal="button_up" from="ClearButton" to="." method="_on_clear_button_button_up"]
+[connection signal="button_up" from="DebugButton" to="." method="_on_debug_button_button_up"]

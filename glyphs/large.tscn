@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cel4dlf7no8wp"]
+
+[ext_resource type="Script" path="res://glyphs/large.gd" id="1_86ufm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8886r"]
+size = Vector2(135, 162)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0y1sj"]
+radius = 17.2627
+
+[node name="large" type="Node2D"]
+script = ExtResource("1_86ufm")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-97, -16, 7, -18, 7, 118, -9, 101, -27, 54, -19, 9, -4, -9)
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+position = Vector2(-42.5, 46)
+shape = SubResource("RectangleShape2D_8886r")
+
+[node name="BindingPoint1" type="Area2D" parent="."]
+position = Vector2(-98, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BindingPoint1"]
+shape = SubResource("CircleShape2D_0y1sj")

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfen6jm3vkbsr"]
-
-[ext_resource type="Script" path="res://DrawGlyph.gd" id="1_2u203"]
-
-[node name="DrawGlyph" type="Node2D"]
-position = Vector2(576, 324)
-script = ExtResource("1_2u203")

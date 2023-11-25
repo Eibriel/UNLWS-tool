@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://evpg7jjf1xaf"]
+
+[ext_resource type="Script" path="res://glyphs/eats.gd" id="1_kg2xb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ao770"]
+size = Vector2(216, 267)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4u02"]
+radius = 17.2627
+
+[node name="eats" type="Node2D"]
+script = ExtResource("1_kg2xb")
+
+[node name="Line1" type="Line2D" parent="."]
+points = PackedVector2Array(-104, 56, -17, 57, 12, 55, 31, 39, 38, 2, 38, -28, 31, -53, 16, -78, -14, -85, -50, -72, -64, -47, -70, -11, -68, 22, -21, 25, -23, 124)
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+position = Vector2(-9, 11.5)
+shape = SubResource("RectangleShape2D_ao770")
+
+[node name="Slot_Agent" type="Area2D" parent="."]
+position = Vector2(-108, 57)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Agent"]
+shape = SubResource("CircleShape2D_u4u02")
+
+[node name="Slot_Theme" type="Area2D" parent="."]
+position = Vector2(-24, 127)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Theme"]
+shape = SubResource("CircleShape2D_u4u02")

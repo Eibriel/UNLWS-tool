@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://oy7agum5rnir"]
+
+[ext_resource type="Script" path="res://glyphs/remember.gd" id="1_jin42"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ao770"]
+size = Vector2(223, 103)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4u02"]
+radius = 17.2627
+
+[node name="remember" type="Node2D"]
+script = ExtResource("1_jin42")
+
+[node name="Line1" type="Line2D" parent="."]
+points = PackedVector2Array(-6, -7, -4, -46, -28, -77, -68, -67, -84, -29, -52, 2, 69, 3)
+
+[node name="Line2" type="Line2D" parent="."]
+points = PackedVector2Array(-138, -29, -35, -29)
+
+[node name="Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
+position = Vector2(-32.5, -33.5)
+shape = SubResource("RectangleShape2D_ao770")
+
+[node name="Slot_Agent" type="Area2D" parent="."]
+position = Vector2(68, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Agent"]
+shape = SubResource("CircleShape2D_u4u02")
+
+[node name="Slot_Theme" type="Area2D" parent="."]
+position = Vector2(-141, -30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Theme"]
+shape = SubResource("CircleShape2D_u4u02")
