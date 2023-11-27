@@ -50,6 +50,14 @@ offset_right = 1121.0
 offset_bottom = 54.0
 text = "Generate TMR"
 
+[node name="TurnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 987.0
+offset_top = 78.0
+offset_right = 1121.0
+offset_bottom = 111.0
+text = "Player Turn"
+
 [node name="ClearButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 841.0
@@ -79,5 +87,6 @@ text = "TMR:"
 
 [connection signal="value_changed" from="GlyphRotation" to="." method="_on_glyph_rotation_value_changed"]
 [connection signal="button_up" from="GenerateTMRButton" to="." method="_on_generate_tmr_button_up"]
+[connection signal="button_up" from="TurnButton" to="." method="_on_turn_button_button_up"]
 [connection signal="button_up" from="ClearButton" to="." method="_on_clear_button_button_up"]
 [connection signal="button_up" from="DebugButton" to="." method="_on_debug_button_button_up"]

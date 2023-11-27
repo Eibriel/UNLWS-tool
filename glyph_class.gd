@@ -5,6 +5,7 @@ var id: String
 var instance_name: String
 var main_area: Area2D
 var binding_points: Array[Area2D]
+var lines: Array[Line2D]
 var slots: Dictionary
 
 var grabbing := false
@@ -21,9 +22,21 @@ func register_area(_main_area: Area2D) -> void:
 	main_area.connect("input_event", _on_area_input_event)
 
 func register_line(_line: Line2D):
+	lines.append(_line)
 	_line.width = 5
 	_line.antialiased = true
 	_line.default_color = Color.DARK_BLUE
+	_line.joint_mode = Line2D.LINE_JOINT_BEVEL
+	_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	_line.end_cap_mode = Line2D.LINE_CAP_ROUND
+
+func line_color(color:int):
+	for l in lines:
+		match color:
+			0:
+				l.default_color = Color.DARK_BLUE
+			1:
+				l.default_color = Color.DARK_GREEN
 
 func register_binding_point(binding_point: Area2D) -> void:
 	if binding_points.has(binding_point): return

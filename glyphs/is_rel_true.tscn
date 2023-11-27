@@ -1,33 +1,46 @@
 [gd_scene load_steps=4 format=3 uid="uid://tw38synxcgc0"]
 
-[ext_resource type="Script" path="res://glyphs/thing.gd" id="1_vtlgw"]
+[ext_resource type="Script" path="res://glyphs/is_rel_true.gd" id="1_m2r6a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vjdy"]
-size = Vector2(88, 69)
+size = Vector2(104, 47)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxjlx"]
 radius = 17.2627
 
-[node name="thing" type="Node2D"]
-script = ExtResource("1_vtlgw")
+[node name="is_rel_true" type="Node2D"]
+script = ExtResource("1_m2r6a")
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(-33, 0, 32, -1)
+position = Vector2(24, 0)
+points = PackedVector2Array(-77, 1, -48, 1)
+
+[node name="Line2D3" type="Line2D" parent="."]
+position = Vector2(24, 0)
+points = PackedVector2Array(-36, -15, -44, -8, -45, 11, -36, 18)
+
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2(-17, 1)
+points = PackedVector2Array(36, 1, 65, 1)
+
+[node name="Line2D4" type="Line2D" parent="."]
+position = Vector2(-17, 1)
+points = PackedVector2Array(27, -16, 34, -7, 34, 9, 27, 17)
 
 [node name="Area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
-position = Vector2(-1, 0.5)
+position = Vector2(-2, 1.5)
 shape = SubResource("RectangleShape2D_0vjdy")
 
 [node name="BindingPoint1" type="Area2D" parent="."]
-position = Vector2(37, 0)
+position = Vector2(49, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BindingPoint1"]
 shape = SubResource("CircleShape2D_dxjlx")
 
 [node name="Slot_Any" type="Area2D" parent="."]
-position = Vector2(-38, 1)
+position = Vector2(-53, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Any"]
 shape = SubResource("CircleShape2D_dxjlx")

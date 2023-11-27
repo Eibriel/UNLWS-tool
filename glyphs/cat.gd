@@ -6,3 +6,6 @@ func _ready():
 	register_binding_point($BindingPoint1)
 	register_line($Line1)
 	register_line($Line2)
+
+func get_sem_struct():
+	return "CAT"
