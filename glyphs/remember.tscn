@@ -1,21 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://oy7agum5rnir"]
+[gd_scene load_steps=6 format=3 uid="uid://oy7agum5rnir"]
 
 [ext_resource type="Script" path="res://glyphs/remember.gd" id="1_jin42"]
+
+[sub_resource type="Curve2D" id="Curve2D_0pnos"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -36, -28, 0, 0, 0, 0, -138, -28)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u5wpd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 67, 4, 0, 0, -53.7403, -41.0123, -52, 2, -30.4057, 3.53554, 30.4057, -3.53554, -35, -76, 4.24265, -16.9706, -4.24265, 16.9706, -5, -10)
+}
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ao770"]
 size = Vector2(223, 103)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u4u02"]
-radius = 17.2627
+radius = 5.0
 
 [node name="remember" type="Node2D"]
 script = ExtResource("1_jin42")
 
 [node name="Line1" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-6, -7, -4, -46, -28, -77, -68, -67, -84, -29, -52, 2, 69, 3)
 
 [node name="Line2" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-138, -29, -35, -29)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0pnos")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_u5wpd")
 
 [node name="Area" type="Area2D" parent="."]
 
@@ -24,13 +44,13 @@ position = Vector2(-32.5, -33.5)
 shape = SubResource("RectangleShape2D_ao770")
 
 [node name="Slot_Agent" type="Area2D" parent="."]
-position = Vector2(68, 2)
+position = Vector2(68, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Agent"]
 shape = SubResource("CircleShape2D_u4u02")
 
 [node name="Slot_Theme" type="Area2D" parent="."]
-position = Vector2(-141, -30)
+position = Vector2(-139, -28)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slot_Theme"]
 shape = SubResource("CircleShape2D_u4u02")

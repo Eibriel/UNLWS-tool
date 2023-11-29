@@ -28,16 +28,30 @@ var player_turn := true
 
 func _ready():
 	Global.connect("glyph_selected", _on_glyph_selected)
+	Global.connect("selection_refresh", _find_selected_glyph)
+	Global.glyphs_node = glyphs_node
 	for l in glyph_list:
 		var b := Button.new()
 		b.text = l
 		b.connect("button_up", _on_add_glyph.bind(glyph_list[l]))
 		glyph_list_container.add_child(b)
 
+func _find_selected_glyph(click_position: Vector2):
+	Global.select_glyph(click_position)
+	if Global.selected_glyph != null:
+		Global.selected_glyph.grab(click_position)
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		if grabbing:
 			glyphs_node.position = event.position-initial_grab_pos
+	if false:
+		if event is InputEventMouseButton:
+			if event.button_index == 1:
+				if event.pressed:
+					Global.select_glyph(event.position)
+					if Global.selected_glyph != null:
+						Global.selected_glyph.grab(event.position)
 	if event is InputEventMouseButton:
 		if event.button_index == 2:
 			if event.pressed:
@@ -49,7 +63,7 @@ func _input(event):
 func _on_add_glyph(scene:PackedScene):
 	var g: Glyph = scene.instantiate()
 	g.position = Vector2(300, 300)
-	g.scale = Vector2.ONE * 0.5
+	g.scale = Vector2.ONE * 0.75
 	glyphs_node.add_child(g)
 	if !player_turn:
 		g.line_color(1)
@@ -66,28 +80,17 @@ func _on_generate_tmr_button_up():
 		g = g as Glyph
 		var i = g.get_instance()
 		instances[i.instance_name] = i
-	var text := "TMR:\n"
+	print(instances)
+	
+	var text := ""
 	for i in instances:
-		var t:= get_description(i)
-		if t != "":
-			text += t
-			text += "\n"
+		var ii = instances[i]
+		if ii.connections.size() == 0: continue
+		text += "%s:\n" % ii.instance_name
+		for c in ii.connections:
+			text += " - %s: %s\n" % c
+		text += "\n"
 	tmr_text_label.text = text
-
-func get_description(i:String)->String:
-	var id = instances[i].id
-	if not ["remember", "eats", "identity", "is_rel_true", "rel_what", "not_rel"].has(id): return ""
-	var description := ""
-	var _name := i
-	if instances[i].prop.size() > 0:
-		description += " is "
-	for p in instances[i].prop:
-		description += "%s " % p
-	if instances[i].has("agent"):
-		_name = "%s %s" % [instances[i]["agent"], _name]
-	if instances[i].has("theme"):
-		_name = "%s %s" % [_name, instances[i]["theme"]]
-	return "%s%s" % [_name, description]
 
 func _on_clear_button_button_up():
 	for g in glyphs_node.get_children():
@@ -96,7 +99,6 @@ func _on_clear_button_button_up():
 func _on_debug_button_button_up():
 	visible_areas = !visible_areas
 	get_tree().set_debug_collisions_hint(visible_areas)
-
 
 func _on_turn_button_button_up():
 	player_turn = !player_turn

@@ -1,23 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://evpg7jjf1xaf"]
+[gd_scene load_steps=5 format=3 uid="uid://evpg7jjf1xaf"]
 
 [ext_resource type="Script" path="res://glyphs/eats.gd" id="1_kg2xb"]
 
+[sub_resource type="Curve2D" id="Curve2D_1tnp5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -24, 123, 0, 0, 0, 0, -21, 26, 0, 0, 0, 0, -68, 22, -67, 1, 67, -1, -15, -42, 35, -3, -35, 3, 9, 57, 0, 0, 0, 0, -102, 57)
+}
+point_count = 6
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ao770"]
-size = Vector2(216, 267)
+size = Vector2(165, 198)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u4u02"]
-radius = 17.2627
+radius = 5.0
 
 [node name="eats" type="Node2D"]
 script = ExtResource("1_kg2xb")
 
 [node name="Line1" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-104, 56, -17, 57, 12, 55, 31, 39, 38, 2, 38, -28, 31, -53, 16, -78, -14, -85, -50, -72, -64, -47, -70, -11, -68, 22, -21, 25, -23, 124)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_1tnp5")
 
 [node name="Area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area"]
-position = Vector2(-9, 11.5)
+position = Vector2(-34.5, 46)
 shape = SubResource("RectangleShape2D_ao770")
 
 [node name="Slot_Agent" type="Area2D" parent="."]

@@ -1,23 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://bb38sh1v1tyy2"]
+[gd_scene load_steps=6 format=3 uid="uid://bb38sh1v1tyy2"]
 
 [ext_resource type="Script" path="res://glyphs/rel_what.gd" id="1_cxjyt"]
+
+[sub_resource type="Curve2D" id="Curve2D_vvfal"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -15, 0, 0, 0, 0, 0, 17, 1)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_w20ta"]
+_data = {
+"points": PackedVector2Array(14.6085, -17.2305, -14.6085, 17.2305, 25, -16, -10.4881, -8.98984, 10.4881, 8.98984, 25, 18)
+}
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vjdy"]
 size = Vector2(49, 47)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxjlx"]
-radius = 17.2627
+radius = 5.0
 
 [node name="rel_what" type="Node2D"]
 script = ExtResource("1_cxjyt")
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 position = Vector2(61, -1)
 points = PackedVector2Array(-77, 1, -48, 1)
 
 [node name="Line2D3" type="Line2D" parent="."]
+visible = false
 position = Vector2(61, -1)
 points = PackedVector2Array(-36, -15, -44, -8, -45, 11, -36, 18)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vvfal")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_w20ta")
 
 [node name="Area" type="Area2D" parent="."]
 position = Vector2(37, -1)

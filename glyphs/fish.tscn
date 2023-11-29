@@ -1,21 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5tcetxfnrekx"]
+[gd_scene load_steps=6 format=3 uid="uid://b5tcetxfnrekx"]
 
 [ext_resource type="Script" path="res://glyphs/fish.gd" id="1_h51ix"]
+
+[sub_resource type="Curve2D" id="Curve2D_0o1hj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, -54, 34, -3, -34, 3, -28, 101, -34, 11, 34, -11, -64, -4, 9, -8, -9, 8, -46, 70)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_iptpi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -73, 88, 0, 0, 0, 0, -95, 100)
+}
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unysb"]
 size = Vector2(140, 197)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqvyl"]
-radius = 17.2627
+radius = 5.0
 
 [node name="fish" type="Node2D"]
 script = ExtResource("1_h51ix")
 
 [node name="Line2D" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-1, -57, 3, 2, -2, 48, -14, 93, -31, 101, -52, 91, -75, 49, -73, 9, -63, -6, -46, 6, -41, 42, -41, 66, -48, 73)
 
 [node name="Line2D2" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-72, 87, -94, 101)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0o1hj")
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_iptpi")
 
 [node name="Area" type="Area2D" parent="."]
 

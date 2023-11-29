@@ -1,18 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgq3dyv0in2pv"]
+[gd_scene load_steps=5 format=3 uid="uid://cgq3dyv0in2pv"]
 
 [ext_resource type="Script" path="res://glyphs/me.gd" id="1_won7n"]
+
+[sub_resource type="Curve2D" id="Curve2D_5cy2x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 47, 1, 0, 0, 0, 0, -91, 2, 0, 0, 0, 0, -60, 34, 0, 0, 0, 0, -59, -32)
+}
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_stvde"]
 size = Vector2(173, 81)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ukas2"]
-radius = 17.2627
+radius = 5.0
 
 [node name="me" type="Node2D"]
 script = ExtResource("1_won7n")
 
 [node name="Line1" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(-59, -34, -59, 36, -92, 0, 47, 0)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5cy2x")
 
 [node name="Area" type="Area2D" parent="."]
 

@@ -77,13 +77,13 @@ text = "Debug"
 
 [node name="TMRTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 491.0
+offset_left = 840.0
+offset_top = 135.0
 offset_right = 1123.0
-offset_bottom = 629.0
+offset_bottom = 580.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "TMR:"
+text = "Connections:"
 
 [connection signal="value_changed" from="GlyphRotation" to="." method="_on_glyph_rotation_value_changed"]
 [connection signal="button_up" from="GenerateTMRButton" to="." method="_on_generate_tmr_button_up"]
