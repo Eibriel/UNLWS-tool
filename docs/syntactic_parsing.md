@@ -213,11 +213,11 @@ Connections don't have a direction, but to simplify the design, and prevent dupl
 - Point A:
   - Type: Slot
   - Position: Bottom
-  - Name: SideA
+  - Name: Agent
 - Point B:
   - Type: Slot
   - Position: Right
-  - Name: null
+  - Name: SideB
  
  5
 
