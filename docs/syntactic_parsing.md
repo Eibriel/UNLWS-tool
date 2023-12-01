@@ -50,93 +50,184 @@ Connections don't have a direction, but to simplify the design, and prevent dupl
 
 # Examples
 
-"There is a thing that is fish, and is large"
+## There is a thing that is fish, and is large
 
 ![There is a thing that is fish, and is large](image_001.jpg)
 
-Glyphs instances
-- Fish
-- Identity
-- Large
+### Glyphs instances
+- Fish (weight: 0)
+- Identity (weight: 5)
+- Large (weight: 0)
 
-Connections
+### Connections
 
 1
 
 - Glyph A uuid: Fish
 - Glyph B uuid: Identity
-- Type A: Binding Point
-- Type B: Binding point
-- Position A: Top (Glyph Identity is at the Top side of Glyph Fish)
-- Position B: Left (Glyph Fish is at the Left side of Glyph Identity)
-- Slot A name: null
-- Slot B name: null
+- Point A:
+  - Type: Binding Point
+  - Position: Top
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Left
+  - Name: null
 
 2
 
 - Glyph A uuid: Large
 - Glyph B uuid: Identity
-- Type A: Binding Point
-- Type B: Binding point
-- Position A: Right (Glyph Identity is at the Right side of Glyph Large)
-- Position B: Bottom (Glyph Large is at the Bottom side of Glyph Identity)
-- Slot A name: null
-- Slot B name: null
+- Point A:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Bottom
+  - Name: null
 
-"There is a thing that is me, and remembers a thing that is a cat"
+## There is a thing that is me, and remembers a thing that is a cat
 
 ![There is a thing that is me, and remembers a thing that is a cat](image_002.jpg)
 
 
-Glyphs instances
-- Me
-- IdentityMe
-- Remember
-- Cat
-- IdentityCat
+### Glyph instances
+- Me (weight: 0)
+- IdentityMe (weight: 5)
+- Remember (weight: 10)
+- Cat (weight: 0)
+- IdentityCat (weight: 5)
 
-Connections
+### Connections
 
-2
+1
 
 - Glyph A uuid: Me
 - Glyph B uuid: IdentityMe
-- Type A: Binding Point
-- Type B: Binding point
-- Position A: Right (Glyph IdentityMe is at the Right side of Glyph Me)
-- Position B: Left (Glyph Me is at the Left side of Glyph IdentityMe)
-- Slot A name: null
-- Slot B name: null
+- Point A:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Left
+  - Name: null
 
-3
+2
 
 - Glyph A uuid: Cat
 - Glyph B uuid: IdentityCat
-- Type A: Binding Point
-- Type B: Binding point
-- Position A: Left (Glyph IdentityCat is at the Left side of Glyph Cat)
-- Position B: Right (Glyph Cat is at the Right side of Glyph IdentityCat)
-- Slot A name: null
-- Slot B name: null
+- Point A:
+  - Type: Binding Point
+  - Position: Left
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null
+
+3
+
+- Glyph A uuid: Remember
+- Glyph B uuid: IdentityMe
+- Point A:
+  - Type: Slot
+  - Position: Right
+  - Name: Agent
+- Point B:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null
 
 4
 
 - Glyph A uuid: Remember
-- Glyph B uuid: IdentityMe
-- Type A: Slot
-- Type B: Binding point
-- Position A: Right (Glyph IdentityMe is at the Right side of Glyph Remember)
-- Position B: Right (Glyph Remember is at the Right side of Glyph IdentityMe)
-- Slot A name: Agent
-- Slot B name: null
-
-5
-
-- Glyph A uuid: Remember
 - Glyph B uuid: IdentityCat
-- Type A: Slot
-- Type B: Binding point
-- Position A: Left (Glyph IdentityCat is at the Left side of Glyph Remember)
-- Position B: Top (Glyph Remember is at the Top side of Glyph IdentityCat)
-- Slot A name: Theme
-- Slot B name: null
+- Point A:
+  - Type: Slot
+  - Position: Left
+  - Name: Theme
+- Point B:
+  - Type: Binding Point
+  - Position: Top
+  - Name: null
+
+## Are cats sentient?
+
+![Are cats sentient?](image_003.jpg)
+
+### Glyph instances
+- Cat (weight: 0)
+- IdentityCat (weight: 5)
+- GenericArticle (weight: 0)
+- IsRelTrue (weight: 15)
+- Think (weight: 10)
+- Imperfective (weight: 0)
+
+### Connections
+
+1
+
+- Glyph A uuid: Cat
+- Glyph B uuid: IdentityCat
+- Point A:
+  - Type: Binding Point
+  - Position: Left
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null
+
+2
+
+- Glyph A uuid: GenericArticle
+- Glyph B uuid: IdentityCat
+- Point A:
+  - Type: Binding Point
+  - Position: Bottom
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Top
+  - Name: null
+
+3
+
+- Glyph A uuid: IdentityCat
+- Glyph B uuid: IsRelTrue
+- Point A:
+  - Type: Slot
+  - Position: Right
+  - Name: null
+- Point B:
+  - Type: Slot
+  - Position: Left
+  - Name: SideA
+
+4
+
+- Glyph A uuid: Think
+- Glyph B uuid: IsRelTrue
+- Point A:
+  - Type: Slot
+  - Position: Bottom
+  - Name: SideA
+- Point B:
+  - Type: Slot
+  - Position: Right
+  - Name: null
+ 
+ 5
+
+- Glyph A uuid: Imperfective
+- Glyph B uuid: Think
+- Point A:
+  - Type: Binding Point
+  - Position: Bottom
+  - Name: null
+- Point B:
+  - Type: Binding Point
+  - Position: Right
+  - Name: null

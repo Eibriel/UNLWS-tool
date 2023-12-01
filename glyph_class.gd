@@ -27,7 +27,7 @@ func register_area(_main_area: Area2D) -> void:
 	main_area.set_meta("glyph", instance_name)
 	main_area.connect("input_event", _on_area_input_event)
 
-func register_line(_line: Line2D):
+func register_line(_line: Line2D) -> void:
 	lines.append(_line)
 	_line.width = 5
 	_line.antialiased = true
@@ -36,10 +36,10 @@ func register_line(_line: Line2D):
 	_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
 	_line.end_cap_mode = Line2D.LINE_CAP_ROUND
 
-func register_path(_path: Path2D):
+func register_path(_path: Path2D) -> void:
 	paths.append(_path)
 
-func line_color(color:int):
+func line_color(color:int) -> void:
 	for l in lines:
 		match color:
 			0:
@@ -71,37 +71,40 @@ func distance_to_line(click_position: Vector2) -> float:
 			min_distance = dist
 	return min_distance
 
-func _draw():
+func _draw() -> void:
 	for path in paths:
-		var baked_points = path.curve.get_baked_points()
-		var base_color = Color.DARK_BLUE
+		var baked_points := path.curve.get_baked_points()
+		var base_color := Color.DARK_BLUE
 		#print(base_color)
 		#draw_polyline(baked_points, base_color*0.2, 2, true)
 		draw_polyline(baked_points, base_color, 4, true)
 		#draw_polyline(baked_points, base_color*1.5, 0.5, true)
 
-func _on_area_input_event(_viewport, event:InputEvent, _shape_idx):
+func _on_area_input_event(_viewport: Viewport, event:InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if event.pressed:
-				Global.refresh_selection(event.position)
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == 1:
+			if mouse_event.pressed:
+				Global.refresh_selection(mouse_event.position)
 				if false:
-					initial_grab_pos = event.position-position
+					initial_grab_pos = mouse_event.position-position
 					grabbing = true
 					Global.set_selected_glyph(self)
 					#print("CLICK")
 
-func grab(click_position:Vector2):
+func grab(click_position:Vector2) -> void:
 	initial_grab_pos = click_position-position
 	grabbing = true
 
-func _input(event):
+func _input(event:InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		var mouse_event := event as InputEventMouseMotion
 		if grabbing:
-			position = event.position-initial_grab_pos
+			position = mouse_event.position-initial_grab_pos
 	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			if not event.pressed:
+		var mouse_event := event as InputEventMouseButton
+		if mouse_event.button_index == 1:
+			if not mouse_event.pressed:
 				grabbing = false
 			#else:
 			#	Global.refresh_selection(event.position)
@@ -116,14 +119,14 @@ func get_instance() -> Dictionary:
 	}
 	var used_gliphs:Array[String] = []
 	# Get other Areas touching my slots
-	for s in slots:
-		var slot = slots[s] as Area2D
+	for s: String in slots:
+		var slot := slots[s] as Area2D
 		if slot.has_overlapping_areas():
-			var ov = slot.get_overlapping_areas()
+			var ov := slot.get_overlapping_areas()
 			var binded_glyphs := get_areas(ov)
 			for bg in binded_glyphs:
 				used_gliphs.append(bg.get_meta("glyph"))
-				inst["connections"].append([slot.get_meta("id"), bg.get_meta("glyph")])
+				(inst["connections"] as Array).append([slot.get_meta("id"), bg.get_meta("glyph")])
 	
 	# For each glyph
 	# for each unused binding point
@@ -134,24 +137,24 @@ func get_instance() -> Dictionary:
 		print(binding_point.has_overlapping_areas())
 		if !binding_point.has_overlapping_areas():
 			var min_distance := 999999.0
-			var sel:Node2D
-			for g in Global.glyphs_node.get_children():
+			var sel:Glyph
+			for g: Glyph in Global.glyphs_node.get_children():
 				if g == self: continue
-				var dist = g.distance_to_line(binding_point.global_position)
+				var dist := g.distance_to_line(binding_point.global_position)
 				if dist < min_distance:
 					min_distance = dist
 					sel = g
 			if sel != null:
-				inst["connections"].append([binding_point.get_meta("id"), sel.instance_name])
+				(inst["connections"] as Array).append([binding_point.get_meta("id"), sel.instance_name])
 	
 	# Get other binding points touching my area
 	if false:
 		if main_area.has_overlapping_areas():
-			var ov = main_area.get_overlapping_areas()
+			var ov := main_area.get_overlapping_areas()
 			var binded_glyphs := get_binding_points(ov)
 			for bg in binded_glyphs:
 				if used_gliphs.has(bg.get_meta("glyph")): continue
-				inst["connections"].append(bg.get_meta("glyph"))
+				(inst["connections"] as Array).append(bg.get_meta("glyph"))
 	return inst
 
 func get_areas(areas: Array[Area2D]) -> Array[Area2D]:

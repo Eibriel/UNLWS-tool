@@ -1,8 +1,8 @@
 extends Glyph
 
-func _ready():
+func _ready() -> void:
 	setup("me")
-	register_area($Area)
-	register_binding_point($BindingPoint1)
+	register_area($Area as Area2D)
+	register_binding_point($BindingPoint1 as Area2D)
 	#register_line($Line1)
-	register_path($Path2D)
+	register_path($Path2D as Path2D)
