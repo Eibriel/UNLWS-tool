@@ -63,26 +63,26 @@ Connections don't have a direction, but to simplify the design, and prevent dupl
 
 1
 
-- Glyph A uuid: Fish
-- Glyph B uuid: Identity
 - Point A:
+  - Glyph uuid: Fish
   - Type: Binding Point
   - Position: Top
   - Name: null
 - Point B:
+  - Glyph uuid: Identity
   - Type: Binding Point
   - Position: Left
   - Name: null
 
 2
 
-- Glyph A uuid: Large
-- Glyph B uuid: Identity
 - Point A:
+  - Glyph uuid: Large
   - Type: Binding Point
   - Position: Right
   - Name: null
 - Point B:
+  - Glyph uuid: Identity
   - Type: Binding Point
   - Position: Bottom
   - Name: null
@@ -103,52 +103,52 @@ Connections don't have a direction, but to simplify the design, and prevent dupl
 
 1
 
-- Glyph A uuid: Me
-- Glyph B uuid: IdentityMe
 - Point A:
+  - Glyph uuid: Me
   - Type: Binding Point
   - Position: Right
   - Name: null
 - Point B:
+  - Glyph uuid: IdentityMe
   - Type: Binding Point
   - Position: Left
   - Name: null
 
 2
 
-- Glyph A uuid: Cat
-- Glyph B uuid: IdentityCat
 - Point A:
+  - Glyph uuid: Cat
   - Type: Binding Point
   - Position: Left
   - Name: null
 - Point B:
+  - Glyph uuid: IdentityCat
   - Type: Binding Point
   - Position: Right
   - Name: null
 
 3
 
-- Glyph A uuid: Remember
-- Glyph B uuid: IdentityMe
 - Point A:
+  - Glyph uuid: Remember
   - Type: Slot
   - Position: Right
   - Name: Agent
 - Point B:
+  - Glyph uuid: IdentityMe
   - Type: Binding Point
   - Position: Right
   - Name: null
 
 4
 
-- Glyph A uuid: Remember
-- Glyph B uuid: IdentityCat
 - Point A:
+  - Glyph uuid: Remember
   - Type: Slot
   - Position: Left
   - Name: Theme
 - Point B:
+  - Glyph uuid: IdentityCat
   - Type: Binding Point
   - Position: Top
   - Name: null
@@ -169,65 +169,65 @@ Connections don't have a direction, but to simplify the design, and prevent dupl
 
 1
 
-- Glyph A uuid: Cat
-- Glyph B uuid: IdentityCat
 - Point A:
+  - Glyph uuid: Cat
   - Type: Binding Point
   - Position: Left
   - Name: null
 - Point B:
+  - Glyph uuid: IdentityCat
   - Type: Binding Point
   - Position: Right
   - Name: null
 
 2
 
-- Glyph A uuid: GenericArticle
-- Glyph B uuid: IdentityCat
 - Point A:
+  - Glyph uuid: GenericArticle
   - Type: Binding Point
   - Position: Bottom
   - Name: null
 - Point B:
+  - Glyph uuid: IdentityCat
   - Type: Binding Point
   - Position: Top
   - Name: null
 
 3
 
-- Glyph A uuid: IdentityCat
-- Glyph B uuid: IsRelTrue
 - Point A:
+  - Glyph uuid: IdentityCat
   - Type: Slot
   - Position: Right
   - Name: null
 - Point B:
+  - Glyph uuid: IsRelTrue
   - Type: Slot
   - Position: Left
   - Name: SideA
 
 4
 
-- Glyph A uuid: Think
-- Glyph B uuid: IsRelTrue
 - Point A:
+  - Glyph uuid: Think
   - Type: Slot
   - Position: Bottom
   - Name: Agent
 - Point B:
+  - Glyph uuid: IsRelTrue
   - Type: Slot
   - Position: Right
   - Name: SideB
  
  5
 
-- Glyph A uuid: Imperfective
-- Glyph B uuid: Think
 - Point A:
+  - Glyph uuid: Imperfective
   - Type: Binding Point
   - Position: Bottom
   - Name: null
 - Point B:
+  - Glyph uuid: Think
   - Type: Binding Point
   - Position: Right
   - Name: null
